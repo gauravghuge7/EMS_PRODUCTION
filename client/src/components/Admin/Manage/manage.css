@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    .responsive-grid {
+      @apply grid font-bold text-gray-900 justify-center items-center mb-3;
+      @apply grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5;
+      @apply gap-x-5 sm:gap-x-10 md:gap-x-16 lg:gap-x-24 xl:gap-x-36;
+    }
+  }
+
+  .dialog-style {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    margin: 0;
+    border: none;
+    max-width: 90vw;
+    background: #1f2937;
+    color: white;
+    border-radius: 0.5rem;
+  }
+  
+  .dialog-style::backdrop {
+    background: rgba(0, 0, 0, 0.8);
+  }
+  

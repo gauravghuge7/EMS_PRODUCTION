@@ -1,0 +1,162 @@
+Calendar.css
+/* .rbc-calendar {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .rbc-toolbar {
+    background-color: #4a90e2;
+    color: white;
+    padding: 10px;
+    border-radius: 8px 8px 0 0;
+  }
+  
+  .rbc-toolbar button {
+    color: white;
+  }
+  
+  .rbc-event {
+    border: none;
+    border-radius: 4px;
+    padding: 4px;
+    font-size: 0.85rem;
+  }
+  
+  .rbc-day-bg {
+    transition: background-color 0.2s ease;
+  }
+  
+  .rbc-day-bg:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .rbc-off-range-bg {
+    background-color: #f9f9f9;
+  }
+  
+  .rbc-today {
+    background-color: #e6f7ff;
+  }
+  
+  .rbc-day-bg[style*="background-color: rgb(255, 228, 225)"] {
+    background-color: #ffe4e1;
+  }
+  
+  .rbc-day-bg[style*="background-color: rgb(255, 255, 255)"] {
+    background-color: white;
+  }
+   */
+
+
+
+
+
+
+
+
+
+   .rbc-calendar {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.rbc-toolbar {
+    background-color: #4a90e2;
+    color: white;
+    padding: 10px;
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.rbc-toolbar button {
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #3b82f6;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.rbc-toolbar button:hover {
+    background-color: #2563eb;
+}
+
+.rbc-event {
+    border: none;
+    border-radius: 4px;
+    padding: 4px;
+    font-size: 0.85rem;
+}
+
+.rbc-day-bg {
+    transition: background-color 0.2s ease;
+}
+
+.rbc-day-bg:hover {
+    background-color: #f0f0f0;
+}
+
+.rbc-off-range-bg {
+    background-color: #f9f9f9;
+}
+
+.rbc-today {
+    background-color: #e6f7ff;
+}
+
+.rbc-day-bg[style*="background-color: rgb(255, 228, 225)"] {
+    background-color: #ffe4e1;
+}
+
+.rbc-day-bg[style*="background-color: rgb(255, 255, 255)"] {
+    background-color: white;
+}
+
+/* Custom button styles for the toolbar */
+.btn-custom {
+    background-color: #4a90e2;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-custom:hover {
+    background-color: #2563eb;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .rbc-toolbar {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .rbc-toolbar button {
+        margin-bottom: 8px;
+    }
+
+    .rbc-toolbar span {
+        margin-bottom: 8px;
+    }
+}
+
+
+
+
+
+
+
+/* 
+
+
+  now i want to make some chnages in the calender chnages are as follow
+remove agends feature from calender
+remove week feature from calender 
+remove today feature from calender
+jus keep month back next and today style it and make it attractive and full responsive for all the devices 
+and make sure that you have added the feature that all sudays and government hoildays should be in red color present day or date should be green in color  */

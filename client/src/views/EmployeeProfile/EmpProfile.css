@@ -1,0 +1,31 @@
+.employee-dashboard {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.employee-details, .employee-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  margin-top: 10px;
+}
+
+.employee-details p {
+  margin: 5px 0;
+}
+
+.employee-details button, .employee-form button {
+  align-self: flex-start;
+}
