@@ -1,6 +1,6 @@
+import { useState } from 'react';
 
-import axios from "axios";
-import  { useState } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 function SignUp({setLoginType}) {
@@ -10,6 +10,8 @@ function SignUp({setLoginType}) {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const [error, setError] = useState("");
 
   const navigate = useNavigate()
 
@@ -45,13 +47,14 @@ function SignUp({setLoginType}) {
     const data = response.data;
 
     console.log(data);
-
-    if (data.success === true) {
+    {/** if the response is success, redirect to login page */}
+    if (response.data.success === true) {
       alert("Admin Successfully registered! Please login to continue");
-      setLoginType("admin");
-      navigate("/adminlogin")
+
+      window.location.href = "/adminlogin";
 
     }
+
     
   };
 
@@ -157,4 +160,4 @@ function SignUp({setLoginType}) {
   );
 }
 
-export  {SignUp};
+export { SignUp };

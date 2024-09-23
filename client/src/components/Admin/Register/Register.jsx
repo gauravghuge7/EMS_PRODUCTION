@@ -1,9 +1,10 @@
-import { useState } from "react";
-import { toast, Toaster } from "sonner";
+import { useState } from 'react';
 
-import axios from "axios";
+import axios from 'axios';
+import { toast } from 'sonner';
 
 function Register() {
+  
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -21,6 +22,7 @@ function Register() {
       headers: {
         "Content-Type": "application/json",
       },
+      withCredentials: true,
     };
   
     if (phoneNumber.length < 10) {
@@ -28,6 +30,7 @@ function Register() {
       return;
     }
   
+    /* create a post request to the server with the form data */
     const body = JSON.stringify({
       firstName: firstName,
       lastName: lastName,
@@ -52,6 +55,8 @@ function Register() {
   
       if (data.success === true) {
         toast.success("Employee Successfully registered!");
+
+        window.location.href = "/admin-dashboard";
       }
 
 
