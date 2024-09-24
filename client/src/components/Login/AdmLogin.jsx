@@ -1,14 +1,16 @@
-import  { useState } from 'react'
-import { toast } from "sonner";
-import { Link, useNavigate } from 'react-router-dom';
-import axios from "axios";
-import adminloginImg from "../../../public/sigupadmin.png";
+import { useState } from 'react';
 
+import axios from 'axios';
+import {
+  Link,
+  useNavigate,
+} from 'react-router-dom';
+import { toast } from 'sonner';
 
 function AdmLogin({loginType}) {
 
     const [adminEmail, setAdminEmail] = useState("");
-    const [adminId, setAdminId] = useState("");
+    // const [adminId, setAdminId] = useState("");
     const [adminPassword, setAdminPassword] = useState("");
 
     const navigate = useNavigate();
@@ -30,7 +32,6 @@ function AdmLogin({loginType}) {
       const body = {
         email: adminEmail,
         password: adminPassword,
-        adminId: adminId
       }
 
       try {
@@ -79,6 +80,8 @@ function AdmLogin({loginType}) {
                   required
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:border-black "
                 />
+
+                {/*
                 <label className="block text-gray-700 mt-3">Admin Id:</label>
                 <input
                 
@@ -88,6 +91,8 @@ function AdmLogin({loginType}) {
                   
                   className="w-full decoration px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2  "
                 />
+                */}
+                
               </div>
               <div className="mb-6">
                 <label className="block text-gray-700">Password:</label>

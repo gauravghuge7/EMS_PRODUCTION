@@ -1,9 +1,20 @@
+import './manage.css';
 
-import { toast, Toaster } from "sonner";
-import { lazy, startTransition, useEffect, useRef, useState } from "react";
-import Register from "../Register/Register";
-import "./manage.css";
-import axios from "axios";
+import {
+  lazy,
+  startTransition,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+
+import axios from 'axios';
+import {
+  toast,
+  Toaster,
+} from 'sonner';
+
+import Register from '../Register/Register';
 
 // Lazy load the EmployeeDetails component
 const EmployeeDetails = lazy(() => import('../EmployeeDetails'));
@@ -107,6 +118,8 @@ function ShowTableData({ DataObject }) {
     }
   };
 
+  
+
   return (
     <div className="text-white">
       {DataObject.map((data, i) => (
@@ -155,7 +168,7 @@ function ShowTableData({ DataObject }) {
       ))}
       <dialog ref={deleteEmployeeRef} className="relative z-10 p-5 rounded-lg bg-gray-800 text-white">
         <h2 className="text-lg font-bold mb-4">Confirm Delete</h2>
-        <p>Enter the employee's email to confirm deletion:</p>
+        <p>Enter the employee&nbsp;s email to confirm deletion:</p>
         <input
           type="email"
           value={deleteEmail}

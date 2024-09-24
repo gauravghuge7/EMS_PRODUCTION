@@ -1,6 +1,6 @@
-import { useState } from "react"
-import axios from "axios"
-import { Toaster,toast } from "sonner"
+import { useState } from 'react';
+
+import axios from 'axios';
 
 function Leave() {
   const [firstName , setFirstName]=useState('')
@@ -41,7 +41,14 @@ function Leave() {
 
     console.log(response);
     
-    alert(response.data.message);
+    if(response.data.success === true){
+
+      alert(response.data.message);
+      window.location.href = "/emp-dashboard";
+
+    }
+    
+
 
   }
 
