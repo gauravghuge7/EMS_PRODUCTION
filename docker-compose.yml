@@ -32,5 +32,5 @@ services:
 
 
 networks:
-  lms-network:
+  ems-network:
     driver: bridge
