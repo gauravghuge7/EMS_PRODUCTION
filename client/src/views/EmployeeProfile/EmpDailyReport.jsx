@@ -1,91 +1,3 @@
-// import { useState, useRef } from "react";
-// import { toast, Toaster } from "sonner";
-// import axios from "axios";
-
-// function EmpDailyReport() {
-//   const [report, setReport] = useState("");
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     // Handle daily report submission logic
-
-//     const config = {
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       withCredentials: true,
-//     };
-
-//     const body = {
-//       report,
-//     };
-
-//     const response = await axios.post(
-//       "http://localhost:5200/api/v1/user/dailyReport",
-//       body,
-//       config
-//     );
-
-//     console.log(response);
-
-//     const data = response.data;
-
-//     console.log(data);
-
-//     if (data.success) {
-//       dialogRef.current.close();
-//       toast.success(data.message);
-//     }
-//   };
-
-//   return (
-//     <div className="bg-slate-100 ">
-//       <Toaster richColors={true} closeButton={true} />
-//       <h2 className="text-2xl font-bold mb-4">Daily Report</h2>
-
-//       <div>
-//         {/*****  daily report add task  *****/}
-//         <div className="mb-4">
-//           <label className="block text-gray-700">Daily Report:</label>
-//           <textarea
-//             value={report}
-//             onChange={(e) => setReport(e.target.value)}
-//             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-//           ></textarea>
-//         </div>
-
-//         <div className="space-x-24">
-//           <button
-//             type="submit"
-//             onClick={handleSubmit}
-//             className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-//           >
-//             Submit Report
-//           </button>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default EmpDailyReport;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 import { useState } from "react";
 import { toast, Toaster } from "sonner";
@@ -143,7 +55,11 @@ function EmpDailyReport() {
 
   return (
     <div className="p-6 max-w-xl mx-auto rounded-lg shadow-lg bg-gray-300">
-      <Toaster richColors={true} closeButton={true} />
+      
+      <div className="absolute top-0 right-0 p-4 ">
+        <Toaster position="top-right" richColors closeButton expand={true} />
+      </div>
+      
       <h2 className="text-2xl font-bold mb-4 text-center">Daily Report</h2>
 
       <form onSubmit={handleSubmit}>

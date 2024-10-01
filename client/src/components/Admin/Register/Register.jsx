@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import axios from 'axios';
-import { toast } from 'sonner';
+import { toast, Toaster } from 'sonner';
 
 function Register() {
   
@@ -17,6 +17,27 @@ function Register() {
     e.preventDefault();
   
     console.log(firstName, lastName, email, phoneNumber, password);
+
+    if (!firstName || !lastName || !email || !phoneNumber || !password ) {
+      alert("All fields are required");
+      return;
+    }
+
+    if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+      alert("Invalid Email");
+      return;
+    }
+
+    if (phoneNumber.length !== 10) {
+      alert("Invalid Phone Number");
+      return;
+    }
+
+    if (!/^(?:[a-zA-Z0-9_]+[^\w]|\w+)(?:[^\w]\w+|[^\w])$/.test(password) || password.length <= 6) {
+      alert("Password must have one capital letter, one number, one special character, and be greater than 6 letters");
+      return;
+    }
+
   
     const config = {
       headers: {
@@ -67,6 +88,9 @@ function Register() {
   };
   return (
     <div className="p-10 text-black bg-gray-100">
+
+      <Toaster position="top-right" richColors closeButton expand={true} />
+
       <h1 className="mb-8 font-extrabold text-4xl">Employee Registeration </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <form onSubmit={handleSubmit}>
@@ -216,6 +240,7 @@ function Register() {
             </ul>
           </div>
         </aside>
+
       </div>
     </div>
   );

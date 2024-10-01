@@ -476,6 +476,18 @@ const sendNotices = asyncHandler(async (req, res) => {
 
 
 
+const getCalendarEmployee = asyncHandler(async (req, res) => {
+
+  try {
+
+    
+    
+  } 
+  catch (error) {
+    console.log(error);
+    throw new ApiError(400, "Error in getting active users", error);
+  }
+})
 
 
 
