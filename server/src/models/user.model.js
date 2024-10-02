@@ -46,9 +46,13 @@ const userSchema = new Schema(
       required: true,
     },
 
+    otp: {
+      type: Number,
+      expiresIn: "1h"
+    },
+
     email: {
       type: String,
-
       // Ensure email is unique
       unique: true,
       match: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,

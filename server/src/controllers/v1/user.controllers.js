@@ -5,6 +5,9 @@ import bcrypt from "bcrypt";
 import { uploadOnCloudinary } from "../../utils/cloudinary.js";
 import { LeaveModel } from "../../models/Leave.model.js";
 
+import ApiError from './../../utils/ApiError.js';
+import { sendOTPEmail } from "../sendEmail.js";
+
 const cookiesOptions = {
   httpOnly: true,
   secure: false,
@@ -318,6 +321,135 @@ const acceptDailyReport = asyncHandler(async (req, res) => {
   }
 });
 
+
+const forgotPassword = asyncHandler(async (req, res) => {
+
+  try {
+
+    // steps for forgot password
+
+    // 1 )  check if email exists in db
+    // 2 ) send otp to email
+    // 3 ) save the otp in db
+    // 4 ) return the response to user send otp successfully
+
+    const {email} = req.body;
+
+    const user = await UserModel.findOne({email})
+
+    if(!user) {
+      throw new ApiError(400, "User not found in Email");
+    }
+
+    // send otp to email 
+    const otp = Math.floor(100000 + Math.random() * 900000);
+
+    user.otp = otp;
+
+    await user.save();
+
+    const response = await sendOTPEmail(email, otp);
+
+    if(!response) {
+      throw new ApiError(400, "Error sending OTP");
+    }
+    return res.json(new ApiResponse(200, "OTP sent successfully", user));
+
+  } 
+  catch (error) {
+    console.log("Error", error);
+    throw new ApiError(200, error.message);  
+  }
+
+})
+
+const verifyOTP = asyncHandler(async (req, res) => { 
+
+  try {
+
+    const {email, otp} = req.body;
+
+    if(!email || !otp) {
+      throw new ApiError(400, "Email and OTP are required");
+    }
+
+    const user = await UserModel.findOne({email});
+
+    console.log("user => ", user);
+
+    if(!user) {
+      throw new ApiError(400, "User not found in Email");
+    }
+
+    console.log("user.otp => ", user.otp);
+
+    if(user.otp != otp) {
+      throw new ApiError(400, "Invalid OTP", user);
+    }
+
+    user.otp = null;
+    
+    await user.save();
+
+    return res.status(200).json(new ApiResponse(200, "OTP verified successfully", user));
+    
+  } 
+  catch (error) {
+    console.log("Error", error);
+    throw new ApiError(200, error.message);
+  }
+})
+
+const changePassword = asyncHandler(async (req, res) => {
+
+  try {
+
+    const {email, password  } = req.body;
+
+    if(!email || !password) {
+      throw new ApiError(400, "Email and Password are required");
+    }
+
+    const user = await UserModel.findOne({email});
+
+    if(!user) {
+        throw new ApiError(400, "User not found in Email");
+    }
+
+    const comparePassword = await bcrypt.compare(password, user.password);
+
+    if(!comparePassword) {
+      throw new ApiError(400, "Invalid Password");
+    }
+
+    const encryptedPassword = await bcrypt.hash(password, 10);
+
+    user.password = encryptedPassword;
+
+    await user.save();
+
+
+    return res 
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        "Password changed successfully",
+        user
+      )
+    )
+
+    
+  } 
+  catch (error) {
+    console.log(error)
+    throw new  ApiError(200, error.message);
+
+  }
+
+})
+
+
 export {
   loginUser,
   updateAvatar,
@@ -328,4 +460,8 @@ export {
   updatePassword,
   getLeaveHistory,
   workStatus,
+
+  forgotPassword,
+  verifyOTP,
+  changePassword
 };

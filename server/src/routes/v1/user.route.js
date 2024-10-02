@@ -8,6 +8,9 @@ import {
   logoutUser,
   updateAvatar,
   updateProfile,
+  forgotPassword,
+  verifyOTP,
+  changePassword,
 } from "../../controllers/v1/user.controllers.js";
 import { upload } from "../../middlewares/multer.middleware.js";
 import { isUserLoggedIn } from "../../middlewares/user.auth.middleware.js";
@@ -62,5 +65,21 @@ UserRouter.route("/getAnnouncements").get(isUserLoggedIn, getAnnouncements);
 
 
 UserRouter.route("/logout").post(isUserLoggedIn, logoutUser);
+
+
+UserRouter.route("/forgotPassword").post(
+  upload.none(),
+  forgotPassword
+)
+
+UserRouter.route("/verifyOtp").post(
+  upload.none(),
+  verifyOTP
+)
+
+UserRouter.route("/changePassword").post(
+  upload.none(),
+  changePassword
+)
 
 export default UserRouter;
