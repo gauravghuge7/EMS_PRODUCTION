@@ -7,6 +7,7 @@ import { LeaveModel } from "../../models/Leave.model.js";
 
 import ApiError from './../../utils/ApiError.js';
 import { sendOTPEmail } from "../sendEmail.js";
+import { convertToOnlyDate } from "./TimeSettings/setDate.js";
 
 const cookiesOptions = {
   httpOnly: true,
@@ -450,6 +451,70 @@ const changePassword = asyncHandler(async (req, res) => {
 })
 
 
+
+const getDailyReportByDate = asyncHandler(async(req, res) => {
+
+  const { email } = req.user;
+
+  const {date} = req.body;
+
+  console.log(" req.body => ", req.body);
+
+  if(!date) {
+      return res.status(400).json(new ApiResponse(400, "Date is required", null));
+  }
+
+  console.log("date => ", date);
+
+  try {
+
+
+
+      const data = await UserModel.findOne({ email });
+
+      console.log(" data => ", data);
+
+      if(!data) {
+          return res.status(400).json(new ApiResponse(400, "no data provided for this date", null));
+      }
+
+      const reports = data.dailyReports;
+
+
+      console.log("reports => ", reports);
+
+
+      
+
+      const dateReport = reports.filter((report) => {
+      
+          const onlyDate = convertToOnlyDate(report.time) === convertToOnlyDate(date)
+          
+          console.log(convertToOnlyDate(report.time) + " ======  " + convertToOnlyDate(date));
+  
+
+          console.log("onlyDate => ", onlyDate);
+          return onlyDate;
+      });
+
+      console.log("dateReport => ", dateReport);
+
+
+
+
+      return res
+      .status(200)
+      .json(new ApiResponse(200, "Daily Report fetched successfully", dateReport));
+
+  } 
+  catch (error) {
+    console.log(error);
+    return res.status(400).json(new ApiResponse(400, "Error fetching daily report", error));
+  }
+
+});
+
+
 export {
   loginUser,
   updateAvatar,
@@ -463,5 +528,7 @@ export {
 
   forgotPassword,
   verifyOTP,
-  changePassword
+  changePassword,
+
+  getDailyReportByDate
 };
