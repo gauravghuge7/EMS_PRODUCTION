@@ -17,7 +17,7 @@ function EmployeeHistory() {
                 withCredentials: true,
             };
             const response = await axios.get(
-              "http://localhost:5200/api/v1/user/getLeaveHistory",
+              "/api/v1/user/getLeaveHistory",
               config
             );
             console.log(response.data.data);

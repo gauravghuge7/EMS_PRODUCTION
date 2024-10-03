@@ -40,7 +40,7 @@ function Admin() {
 
     try {
 
-      const response = await axios("http://localhost:5200/api/v1/admin/getUsers", config);
+      const response = await axios("/api/v1/admin/getUsers", config);
 
       const data = response.data;
 
@@ -81,7 +81,7 @@ function Admin() {
 
     try {
 
-      const response = await axios.get("http://localhost:5200/api/v1/admin/getLeaveEmployee", config)
+      const response = await axios.get("/api/v1/admin/getLeaveEmployee", config)
 
       console.log(response.data);
 

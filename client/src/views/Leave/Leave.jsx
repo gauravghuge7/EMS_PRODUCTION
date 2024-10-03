@@ -62,7 +62,7 @@ function Leave() {
       reason: reason,
     }
  
-     const response = await axios.post('http://localhost:5200/api/v1/user/leaveApplication', data, config);
+     const response = await axios.post('/api/v1/user/leaveApplication', data, config);
  
      console.log(response);
      

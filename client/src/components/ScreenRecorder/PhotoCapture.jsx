@@ -65,7 +65,7 @@ function PhotoCapture() {
             const formData = new FormData();
             formData.append('photo', photoBlob, 'photo.jpg');
 
-            const response = await fetch('http://localhost:5200/api/v1/user/sendSnapshot', {
+            const response = await fetch('/api/v1/user/sendSnapshot', {
                 method: 'POST', 
                 body: formData,
 
