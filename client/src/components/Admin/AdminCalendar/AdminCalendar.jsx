@@ -1,5 +1,9 @@
-import * as React from 'react';
+import React, {
+  useEffect,
+  useState,
+} from 'react';
 
+import axios from 'axios';
 import dayjs from 'dayjs';
 import isBetweenPlugin from 'dayjs/plugin/isBetween';
 
@@ -14,25 +18,25 @@ dayjs.extend(isBetweenPlugin);
 const CustomPickersDay = styled(PickersDay, {
     shouldForwardProp: (prop) =>
         prop !== 'isSelected' && prop !== 'isHovered' && prop !== 'isInRange',
-})(({ theme, isSelected, isHovered, isInRange, day }) => ({
+    })(({ theme, isSelected, isHovered, isInRange, day }) => ({
     borderRadius: 0,
     ...(isSelected && {
         backgroundColor: theme.palette.primary.main,
         color: theme.palette.primary.contrastText,
         '&:hover, &:focus': {
-            backgroundColor: theme.palette.primary.main,
+        backgroundColor: theme.palette.primary.main,
         },
     }),
     ...(isHovered && {
         backgroundColor: theme.palette.action.hover,
         '&:hover, &:focus': {
-            backgroundColor: theme.palette.action.hover,
+        backgroundColor: theme.palette.action.hover,
         },
     }),
     ...(isInRange && {
         backgroundColor: theme.palette.primary.light,
         '&:hover, &:focus': {
-            backgroundColor: theme.palette.primary.light,
+        backgroundColor: theme.palette.primary.light,
         },
     }),
     ...(day.day() === 0 && {
@@ -47,6 +51,7 @@ const CustomPickersDay = styled(PickersDay, {
 
 
 function Day(props) {
+
     const { day, selectedDay, startDate, endDate, hoveredDay, ...other } = props;
 
     // eslint-disable-next-line react/prop-types
@@ -54,50 +59,101 @@ function Day(props) {
     // eslint-disable-next-line react/prop-types
     const isSelected = day.isSame(startDate, 'day') || day.isSame(endDate, 'day');
 
-    
-
     return (
         <CustomPickersDay
-            {...other}
-            day={day}
-            sx={{ px: 2.5 }}
-            disableMargin
-            selected={false}
-            isSelected={isSelected}
-            isInRange={isInRange}
-            isHovered={!isSelected && !isInRange && day.isSame(hoveredDay, 'day')}
+        {...other}
+        day={day}
+        sx={{ px: 2.5 }}
+        disableMargin
+        selected={false}
+        isSelected={isSelected}
+        isInRange={isInRange}
+        isHovered={!isSelected && !isInRange && day.isSame(hoveredDay, 'day')}
         />
     );
 }
 
-export default function RangePicker() {
 
-    const [startDate, setStartDate] = React.useState(dayjs('2024-06-12'));
-    const [endDate, setEndDate] = React.useState(dayjs('2024-06-16'));
+export default function AdminCalendar() {
+
+    useEffect(() => {
+        getEmployeeHistory();
+    }, []);
+
+
+
+    const [employeeHistory, setEmployeeHistory] = useState();
+    const [startDate, setStartDate] = React.useState(dayjs(employeeHistory?.startDate));
+    const [endDate, setEndDate] = React.useState(dayjs(employeeHistory?.endDate));
+    const [dailyReport, setDailyReport] = useState("Nikhil");
+    const [openOnClick, setOpenOnClick] = useState(false);
+    const handleDailyClick = (date) => {
+        console.log(date)
+        setOpenOnClick(true)
+        // fetch the data from api
+        setDailyReport(date)
+
+
+    }
+
+    const getEmployeeHistory = async () => {
+        try {
+        const config = {
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            withCredentials: true,
+        };
+        const response = await axios.get("http://localhost:5200/api/v1/admin/getLeaveEmployee", config);
+        console.log(response.data.data.at(-1));
+
+        setStartDate(dayjs(response.data.data.at(-1).startDate))
+        setEndDate(dayjs(response.data.data.at(-1).endDate))
+        } 
+        catch (error) {
+            console.error('Error fetching employee history:', error);
+        }
+    };
 
 
 
     return (
-        <div className='pt-44'>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <div className='align-center bg-gray-500 w-[50%] scale-[1] '>
+        <LocalizationProvider dateAdapter={AdapterDayjs} className='w-[70%] align-center scale-[2] '>
             <DateCalendar
-                value={startDate}
-                // onChange={handleDateChange}
-                showDaysOutsideCurrentMonth
-                displayWeekNumber
-                slots={{ day: Day }}
-                slotProps={{
-                    day: (ownerState) => ({
-                        selectedDay: startDate,
-                        startDate: startDate,
-                        endDate: endDate,
-            
-                    
-                    }),
-                }}
+            value={startDate}
+            onChange={(e) => handleDailyClick(`${e.$y}-${e.$M + 1}-${e.$D}`)}
+            showDaysOutsideCurrentMonth
+            displayWeekNumber
+            slots={{ day: Day }}
+            slotProps={{
+                day: (ownerState) => ({
+                selectedDay: startDate,
+                startDate: startDate,
+                endDate: endDate,
+
+
+                }),
+            }}
             />
         </LocalizationProvider>
+
+        <dialog open={openOnClick} className='rounded-[12px] absolute z-50    w-[500px] min-h-[300px] top-0 mt-5 bg-black text-white'>
+            <h2 className='mt-2 text-center'>Daily Report</h2>
+            <h3 className=' text-center'>{dailyReport}</h3>
+
+            <h3 className='mt-8 text-center'> Todays Report </h3>
+            <div className='flex flex-col gap-8 p-2 rounded-lg  w-[21rem] mx-auto border '>
+            <div className=' '>
+                <h2>{dailyReport}</h2>
+                {/* <a target='_blank' href={`https://github.com/ArohiSoftware/emplyeemanagement/compare/main...code-sharad:emplyeemanagement:main`} className='text-[12px] font-light hover:underline'>Github Commits</a> */}
+            </div>
+
+            <p className='text-sm'>{dailyReport}</p>
+            </div>
+            <button className='absolute top-2  right-4' onClick={() => setOpenOnClick(false)}>x</button>
+        </dialog>
+
         </div>
     );
-    
 }   

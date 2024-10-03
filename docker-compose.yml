@@ -7,13 +7,11 @@ services:
       dockerfile: Dockerfile
     container_name: client
     ports:
-      - "5173:5173"
-
-    volumes:
-      - ./client:/app
-    
+      - "80:80"
     networks:
-      - ems-network
+      - lms-network
+    restart: always
+  
   server:
     build: 
       context: ./server
@@ -25,11 +23,16 @@ services:
       - ./server:/app
     depends_on:
       - client  
+    environment:
+      - PORT=5200
+      - MONGODB_URI=mongodb+srv://employee:Gauravghuge7@employee.c7zn40c.mongodb.net/employee
+      - JWT_SECRET=secret
+      - CLIENT_URL=http://localhost
+      - CLOUDINARY_CLOUD_NAME=dsh5742fk
+      - CLOUDINARY_API_KEY=899594559273632
+      - CLOUDINARY_API_SECRET=9E2v2LfZFqO2qiFf1-yuZmO3JX8
     networks:
-      - ems-network
-    env_file:
-      - .env
-
+      - lms-network
 
 networks:
   ems-network:

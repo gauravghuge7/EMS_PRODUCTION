@@ -13,7 +13,7 @@ export const JWT_SECRET = process.env.JWT_SECRET || "somestupidsecert";
 export const MONGODB_URI = process.env.MONGODB_URI;
 
 // Enums
-export const USER_ROLE = Object.freeze({
+export const USER_ROLE = Object.freeze({  
   Admin: Symbol("admin"),
   User: Symbol("user"),
   Moderator: Symbol("moderator"),

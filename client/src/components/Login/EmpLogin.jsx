@@ -1,4 +1,4 @@
-import { toast } from "sonner";
+import { toast, Toaster } from "sonner";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -54,6 +54,7 @@ function EmpLogin({ setUserType }) {
       }
     } catch (error) {
       console.error("Error during login:", error);
+      toast.error("An error occurred during login. Please try again later.");
       setErrorMessage(
         "An error occurred during login. Please try again later."
       );
@@ -63,6 +64,12 @@ function EmpLogin({ setUserType }) {
   return (
     <div>
       <div className="grid shadow-2xl border max-w-[900px] mx-auto translate-y-24  grid-cols-1 lg:grid-cols-2">
+
+
+        <div className="absolute top-0 right-0 p-4 ">
+          <Toaster position="top-right" richColors closeButton expand={true} />
+        </div>
+
         <img
           className="hidden z-10 lg:block md:col-span-1 object-cover"
           src="./istockphoto-1281150061-612x612.jpg"

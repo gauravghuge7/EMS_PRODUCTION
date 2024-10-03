@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import PhotoCapture from './PhotoCapture';
 
 function AutoCapture() {

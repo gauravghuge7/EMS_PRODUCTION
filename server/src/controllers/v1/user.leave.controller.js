@@ -156,30 +156,30 @@ const employeeLeaveStatus = asyncHandler(async (req,res) => {
 
 const getAllLeaves = asyncHandler(async (req,res) => {
     
-        try {
-            const user = await LeaveModel.find({})
-            console.log(user);
-            if(!user) {
-                return res.status(400).json(new ApiResponse(404, " no leave request found"));
-            }
-            
-            return res
-            .status(200)
-            .json(new ApiResponse(
-                200,
-                "Leave status fetched successfully",
-                user
-            ));
-            
-        } 
-        catch (error) {
-            console.log(error);
-            return res
-            .status(500)
-            .json({
-                message: error.message
-            });
+    try {
+        const user = await LeaveModel.find({})
+        console.log(user);
+        if(!user) {
+            return res.status(400).json(new ApiResponse(404, " no leave request found"));
         }
+        
+        return res
+        .status(200)
+        .json(new ApiResponse(
+            200,
+            "Leave status fetched successfully",
+            user
+        ));
+        
+    } 
+    catch (error) {
+        console.log(error);
+        return res
+        .status(500)
+        .json({
+            message: error.message
+        });
+    }
 })
 
 
@@ -267,10 +267,10 @@ const giveLeavePermission = asyncHandler(async (req,res) => {
 
 
 export {
-  acceptLeaveApplication,
-  addTask,
-  adminLeaveStatus,
-  employeeLeaveStatus,
-  giveLeavePermission,
-  getAllLeaves,
+    acceptLeaveApplication,
+    addTask,
+    adminLeaveStatus,
+    employeeLeaveStatus,
+    giveLeavePermission,
+    getAllLeaves,
 };

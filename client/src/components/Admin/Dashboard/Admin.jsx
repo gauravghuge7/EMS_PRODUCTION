@@ -30,7 +30,6 @@ function Admin() {
 
   const getEmployee = async () => {
 
-
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -38,7 +37,6 @@ function Admin() {
 
       withCredentials: true
     };
-
 
     try {
 
@@ -51,10 +49,7 @@ function Admin() {
 
       console.log(data.data);
 
-
       const info = data.data;
-
-
 
       info.map((e) => {
 
@@ -66,13 +61,10 @@ function Admin() {
 
       setActiveUsers(count);
 
-
-
-
-
     }
     catch (error) {
       console.log(error);
+      window.location.href = "/";
     }
 
   }
