@@ -40,7 +40,7 @@ function SignUp({setLoginType}) {
       },
     }
 
-    const response = await axios.post('http://localhost:5200/api/v1/admin/registerAdmin', body, config);
+    const response = await axios.post('/api/v1/admin/registerAdmin', body, config);
 
     console.log(response);
 

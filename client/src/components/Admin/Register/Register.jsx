@@ -63,7 +63,7 @@ function Register() {
   
     try {
       const response = await axios.post(
-        "http://localhost:5200/api/v1/admin/registerUser",
+        "/api/v1/admin/registerUser",
         body,
         config
       );

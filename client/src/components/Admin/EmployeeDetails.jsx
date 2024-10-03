@@ -38,7 +38,7 @@ function EmployeeDetails({ details, empRef }) {
       console.log("messssssssssssssssssssssss", message, email);
 
       const response = await axios.post(
-        "http://localhost:5200/api/v1/admin/sendNotice",
+        "/api/v1/admin/sendNotice",
         body,
         config
       );
@@ -63,7 +63,7 @@ function EmployeeDetails({ details, empRef }) {
   useEffect(() => {
     console.log("Employee details: ", details);
 
-    const url = `http://localhost:5200/api/v1/admin/getSnapshot`;
+    const url = `/api/v1/admin/getSnapshot`;
 
     axios
       .post(

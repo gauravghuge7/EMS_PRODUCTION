@@ -30,7 +30,7 @@ function EmpProfile() {
 
     try {
       const response = await axios.get(
-        "http://localhost:5200/api/v1/user/getUserProfile",
+        "/api/v1/user/getUserProfile",
         config
       );
       console.log("response", response);
@@ -83,7 +83,7 @@ function EmpProfile() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5200/api/v1/user/updateProfile",
+        "/api/v1/user/updateProfile",
         formData,
         config
       );
