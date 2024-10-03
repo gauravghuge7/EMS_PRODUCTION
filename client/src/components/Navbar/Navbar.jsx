@@ -41,7 +41,7 @@ function Navbar({ userType, setUserType }) {
     };
 
     const response = await axios.post(
-      "http://localhost:5200/api/v1/user/logout",
+      "/api/v1/user/logout",
       config,
     );
 
@@ -76,7 +76,7 @@ function Navbar({ userType, setUserType }) {
     };
 
     const response = await axios.post(
-      "http://localhost:5200/api/v1/admin/logout",
+      "/api/v1/admin/logout",
       config
     );
     localStorage.removeItem("admin");

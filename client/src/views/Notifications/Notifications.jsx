@@ -24,7 +24,7 @@ const Notifications = () => {
     };
 
 
-    const response = await axios.get("http://localhost:5200/api/v1/admin/getLeaveEmployee", config);
+    const response = await axios.get("/api/v1/admin/getLeaveEmployee", config);
 
     console.log(response);
 
@@ -63,7 +63,7 @@ const Notifications = () => {
       reason: reason
     };
 
-    const response = await axios.post("http://localhost:5200/api/v1/admin/approveLeave", body, config);
+    const response = await axios.post("/api/v1/admin/approveLeave", body, config);
 
     console.log(response);
 
@@ -88,7 +88,7 @@ const Notifications = () => {
       reason: reason
     };
 
-    const response = await axios.post("http://localhost:5200/api/v1/admin/approveLeave", body, config);
+    const response = await axios.post("/api/v1/admin/approveLeave", body, config);
 
     console.log(response);
 

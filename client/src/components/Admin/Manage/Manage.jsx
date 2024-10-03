@@ -31,7 +31,7 @@ function Manage() {
       withCredentials: true,
     };
 
-    const response = await axios.get("http://localhost:5200/api/v1/admin/getUsers", config);
+    const response = await axios.get("/api/v1/admin/getUsers", config);
     const data = response.data.data;
     setDetail(data);
   };
@@ -93,7 +93,7 @@ function ShowTableData({ DataObject }) {
     const body = { email };
 
     try {
-      const response = await axios.delete("http://localhost:5200/api/v1/admin/deleteUser", { data: body }, config);
+      const response = await axios.delete("/api/v1/admin/deleteUser", { data: body }, config);
 
       if (response.data.success) {
         toast.success("Employee Deleted Successfully");

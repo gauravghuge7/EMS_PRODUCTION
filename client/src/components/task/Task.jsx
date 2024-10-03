@@ -53,7 +53,7 @@ export const AddTask = ({ setTasks, tasks, dialogRef } ) => {
       
     }
 
-    const response = await axios.post("http://localhost:5200/api/v1/user/addTask", body, config);
+    const response = await axios.post("/api/v1/user/addTask", body, config);
 
     console.log(response);
     const data = response.data;

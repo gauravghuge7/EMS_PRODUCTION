@@ -27,7 +27,7 @@ function EmpDailyReport() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5200/api/v1/user/dailyReport",
+        "/api/v1/user/dailyReport",
         body,
         config
       );

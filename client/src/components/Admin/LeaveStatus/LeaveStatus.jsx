@@ -16,7 +16,7 @@ function LeaveStatus() {
             withCredentials: true
         }
 
-        const response = await axios.get("http://localhost:5200/api/v1/admin/getLeaveEmployee", config)
+        const response = await axios.get("/api/v1/admin/getLeaveEmployee", config)
         
         
         console.log(response.data)

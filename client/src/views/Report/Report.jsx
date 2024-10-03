@@ -23,7 +23,7 @@ const DailyReport = () => {
     }
 
     
-    const response = await axios.get("http://localhost:5200/api/v1/admin/getDailyReport", config)
+    const response = await axios.get("/api/v1/admin/getDailyReport", config)
 
 
     console.log(response)

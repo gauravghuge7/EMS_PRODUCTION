@@ -60,7 +60,7 @@ export function EmployeeDashboard() {
       } else {
         try {
           const res = await axios.get(
-            "http://localhost:5200/api/v1/user/status"
+            "/api/v1/user/status"
           );
           console.log("status", res.data);
           setTimer(res.data.data[0].remainingTime);
@@ -107,7 +107,7 @@ export function EmployeeDashboard() {
   const fetchAnnouncements = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5200/api/v1/user/getAnnouncements"
+        "/api/v1/user/getAnnouncements"
       );
       console.log("Fetched Announcements", response.data);
 
@@ -134,7 +134,7 @@ export function EmployeeDashboard() {
 
     try {
       const response = await axios.get(
-        "http://localhost:5200/api/v1/user/getUserProfile",
+        "/api/v1/user/getUserProfile",
         config
       );
       const data = response.data;

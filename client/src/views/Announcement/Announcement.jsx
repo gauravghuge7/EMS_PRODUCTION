@@ -26,7 +26,7 @@ function Announcement() {
         };
 
         try {
-            const response = await axios.post('http://localhost:5200/api/v1/admin/createAnnouncement', body, {
+            const response = await axios.post('/api/v1/admin/createAnnouncement', body, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -58,7 +58,7 @@ function Announcement() {
 
     const fetchAnnouncements = async () => {
         try {
-            const response = await axios.post('http://localhost:5200/api/v1/admin/getAnnouncements');
+            const response = await axios.post('/api/v1/admin/getAnnouncements');
 
             console.log('Fetched Announcements:', response.data);
             console.log('Fetched Announcements => ', response.data.data);
