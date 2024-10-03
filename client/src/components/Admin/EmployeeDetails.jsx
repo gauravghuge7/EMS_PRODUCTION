@@ -1,11 +1,16 @@
+import {
+  useEffect,
+  useState,
+} from 'react';
 
+import axios from 'axios';
+import {
+  toast,
+  Toaster,
+} from 'sonner';
 
-
-
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { toast, Toaster } from "sonner";
-import convertToSimpleDate from "./TimeSetting/SetDate";
+import AdminCalendar from './AdminCalendar/AdminCalendar';
+import convertToSimpleDate from './TimeSetting/SetDate';
 
 function EmployeeDetails({ details, empRef }) {
   const [screenShots, setScreenShots] = useState([]);
@@ -235,7 +240,19 @@ function EmployeeDetails({ details, empRef }) {
 
 
             </div> 
-          </div> 
+          </div>
+          
+          
+          <section>
+            <h3 className="text-2xl my-12 text-center">Calendar</h3>  
+
+            <div className="items-center">
+              <AdminCalendar />
+            </div>
+          
+          </section>
+
+
         </div>
       </div>
     </div>

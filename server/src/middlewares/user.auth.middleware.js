@@ -22,13 +22,9 @@ const isUserLoggedIn = asyncHandler(async (req, res, next) => {
 
 
   if (!userToken) {
-    return 
-    
-    
-    // .status(400)
-    
-    // .json(new ApiResponse(400, "employee is not login "))
-    
+    return res
+    .status(400)
+    .redirect('http://localhost:5173/')
   }
 
   try {
@@ -40,7 +36,7 @@ const isUserLoggedIn = asyncHandler(async (req, res, next) => {
   } 
   catch (error) {
     console.log(error);
-    return res.status(400).send(error.message);
+    return res.status(400).redirect('http://localhost:5173/')
   }
 });
 

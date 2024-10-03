@@ -5,14 +5,13 @@ import {
   Link,
   useNavigate,
 } from 'react-router-dom';
-import { toast } from 'sonner';
+import { toast, Toaster } from 'sonner';
 
 function AdmLogin({loginType}) {
 
     const [adminEmail, setAdminEmail] = useState("");
     // const [adminId, setAdminId] = useState("");
     const [adminPassword, setAdminPassword] = useState("");
-
     const navigate = useNavigate();
 
 
@@ -22,6 +21,17 @@ function AdmLogin({loginType}) {
       console.log("Admin Email:", adminEmail);
       console.log("Admin Password:", adminPassword);
     
+
+      if (!adminEmail) {
+        toast.error("Email is required");
+        return;
+      }
+
+      if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(adminEmail)) {
+        toast.error("Invalid Email");
+        return;
+      }
+
       const config = {
         headers: {
           "Content-Type": "application/json",
@@ -48,7 +58,11 @@ function AdmLogin({loginType}) {
     
           navigate('/admin-dashboard');
         }
-      } catch (error) {
+        else {
+            toast.error("Email or password is incorrect");
+        }
+      } 
+      catch (error) {
         console.error("Login failed:", error);
         toast.error("Admin Login Failed. Please try again.");
       }
@@ -60,6 +74,12 @@ function AdmLogin({loginType}) {
   return (
     <div className='grid shadow-2xl translate-y-24 border max-w-[900px] mx-auto grid-cols-1 lg:grid-cols-2'>
       {/* Admin Login Card */}
+
+      <div className='absolute top-0 right-0 p-4 '>
+        <Toaster position="top-right" richColors closeButton expand={true} />
+      </div>
+
+      
 
       <img className="hidden lg:block md:col-span-1  object-cover" src="./adminlogin.png"/>
       <div className="col-span-2 lg:col-span-1 p-6  ">
