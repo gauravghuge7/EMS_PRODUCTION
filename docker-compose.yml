@@ -9,7 +9,7 @@ services:
     ports:
       - "80:80"
     networks:
-      - lms-network
+      - ems-network
     restart: always
   
   server:
@@ -32,7 +32,7 @@ services:
       - CLOUDINARY_API_KEY=899594559273632
       - CLOUDINARY_API_SECRET=9E2v2LfZFqO2qiFf1-yuZmO3JX8
     networks:
-      - lms-network
+      - ems-network
 
 networks:
   ems-network:
