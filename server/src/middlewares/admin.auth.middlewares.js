@@ -16,7 +16,7 @@ const isAdminLoggedIn = asyncHandler(async (req, res, next) => {
 
     return res
     .status(200)
-    .redirect('http://localhost:5173/')
+    .redirect('/')
     .json(new ApiResponse(400, "admin is not login in the server"))
   }
 
@@ -31,7 +31,10 @@ const isAdminLoggedIn = asyncHandler(async (req, res, next) => {
   } 
   catch (error) {
     console.log(error);
-    return res.status(400).send(error.message);
+    return res
+    .status(400)
+    .redirect('/')
+    .send(error.message);
   }
 });
 
