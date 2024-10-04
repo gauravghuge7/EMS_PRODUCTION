@@ -91,7 +91,7 @@ export default function Calendar() {
       const body = {
         date: date,
       };
-      const response = await axios.post(`/user/getDailyReport`, body, config);
+      const response = await axios.post(`/api/v1/user/getDailyReport`, body, config);
       console.log(response.data.data);
       setDailyReport(response.data.data);
     } 
@@ -108,7 +108,7 @@ export default function Calendar() {
         },
         withCredentials: true,
       };
-      const response = await axios.get(`/admin/getLeaveEmployee`, config);
+      const response = await axios.get(`/api/v1/admin/getLeaveEmployee`, config);
       console.log(response.data.data.at(-1));
       setStartDate(dayjs(response.data.data.at(-1).startDate))
       setEndDate(dayjs(response.data.data.at(-1).endDate))

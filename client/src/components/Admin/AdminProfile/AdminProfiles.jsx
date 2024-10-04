@@ -28,7 +28,7 @@ function AdminProfiles() {
 
         const response = await axios.get("/api/v1/admin/getAdminProfile", config);
 
-        const data = response.data.data;
+        const data = response?.data?.data;
 
         console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", data);
 
