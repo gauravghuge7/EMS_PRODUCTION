@@ -24,7 +24,7 @@ const isUserLoggedIn = asyncHandler(async (req, res, next) => {
   if (!userToken) {
     return res
     .status(400)
-    .redirect('http://localhost:5173/')
+    .redirect('/')
   }
 
   try {
@@ -36,7 +36,7 @@ const isUserLoggedIn = asyncHandler(async (req, res, next) => {
   } 
   catch (error) {
     console.log(error);
-    return res.status(400).redirect('http://localhost:5173/')
+    return res.status(400).redirect('/')
   }
 });
 
