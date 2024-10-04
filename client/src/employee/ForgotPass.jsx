@@ -58,7 +58,7 @@ function ForgotPass() {
         email: email,
       };
 
-      const response = await axios.post(`/user/forgotPassword`, body, config);
+      const response = await axios.post(`/api/v1/user/forgotPassword`, body, config);
 
       if (response.data.success) {
         toast.success("OTP Sent Successfully");
@@ -94,7 +94,7 @@ function ForgotPass() {
         return;
       }
 
-      const response = await axios.post(`/user/verifyOtp`, body, config);
+      const response = await axios.post(`/api/v1/user/verifyOtp`, body, config);
 
       if (response.data.success) {
         closeVerifyOtp();
@@ -137,7 +137,7 @@ function ForgotPass() {
         return;
       }
 
-      const response = await axios.post(`/user/changePassword`, body, config);
+      const response = await axios.post(`/api/v1/user/changePassword`, body, config);
 
       if (response.data.success) {
         closeChangePassword();

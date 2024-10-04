@@ -14,12 +14,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // enable cross origin requests
-app.use(cors(
-  {
-    origin: process.env.CLIENT_URL,
-    credentials: true,
-  }
-));
+app.use(cors({
+  origin: function (origin, callback) {
+    const allowedOrigins = [process.env.CLIENT_URL, 'http://13.235.142.116'];
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
+
+
 
 // app.use(cors());
 

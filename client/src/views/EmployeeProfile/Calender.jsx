@@ -93,7 +93,7 @@ export default function Calendar() {
       const body = {
         date: date,
       };
-      const response = await axios.post(`/user/getDailyReport`, body, config);
+      const response = await axios.post(`/api/v1/user/getDailyReport`, body, config);
       console.log(response.data.data);
       setDailyReport(response.data.data);
     } 

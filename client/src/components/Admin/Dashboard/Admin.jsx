@@ -64,7 +64,11 @@ function Admin() {
     }
     catch (error) {
       console.log(error);
-      window.location.href = "/";
+      const message = error?.response?.data?.message
+      
+      if(message === "unauthorised") {
+        window.location.href = "/";
+      }
     }
 
   }
