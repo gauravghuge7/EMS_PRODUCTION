@@ -36,7 +36,6 @@ function ForgotPass() {
   };
 
   const closeChangePassword = () => {
-    
     if (changePasswordRef.current) {
       changePasswordRef.current.close();
     }
