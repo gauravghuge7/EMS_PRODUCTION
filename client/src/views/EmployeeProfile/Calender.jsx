@@ -77,7 +77,7 @@ export default function Calendar() {
   const [endDate, setEndDate] = React.useState(dayjs(employeeHistory?.endDate));
   const [dailyReport, setDailyReport] = useState("Nikhil");
   const [openOnClick, setOpenOnClick] = useState(false);
-  const handleDailyClick = (date) => {
+  const handleDailyClick = async(date) => {
     console.log(date)
     setOpenOnClick(true)
     try {
