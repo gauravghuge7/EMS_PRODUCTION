@@ -6,7 +6,7 @@ import axios from 'axios'
 
 
 
-axios.defaults.baseURL = 'http://localhost:5200';
+axios.defaults.baseURL = 'http://13.235.142.116:5200';
 
 axios.defaults.withCredentials = true;
 
