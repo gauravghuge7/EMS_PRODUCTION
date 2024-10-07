@@ -73,8 +73,7 @@ app.options('*', cors()); // Handle preflight requests for all routes
 
 
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "http://13.235.142.116:80");
-  res.header("Access-Control-Allow-Origin", "http://13.235.142.116:5173");
+  res.header("Access-Control-Allow-Origin", "http://13.235.142.116");
   res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH,  DELETE, OPTIONS");
   if (req.method === 'OPTIONS') {
