@@ -8,7 +8,7 @@ export default defineConfig({
     proxy:  {
       '/api/v1':  {
       
-        target: 'http://localhost:5200',  // Fixed the missing slash
+        target: 'http://13.235.142.116:5200',  // Fixed the missing slash
         changeOrigin: true,  
         
       }
