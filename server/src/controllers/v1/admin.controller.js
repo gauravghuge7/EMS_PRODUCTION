@@ -209,8 +209,8 @@ const getAdminProfile = asyncHandler(async (req, res) => {
     const phone = user.phoneNumber
 
     return res
-      .status(200)
-      .json(new ApiResponse(200, "Admin fetched successfully", user, phone))
+      .status(201)
+      .json(new ApiResponse(201, "Admin fetched successfully", user,  phone))
   }
 
   catch (error) {
@@ -274,7 +274,9 @@ const deleteUser = asyncHandler(async (req, res) => {
 
   const { email } = req.body;
 
-  console.log(req.body);
+  console.log("req.body", req.body);
+
+  
   console.log("this is email => "+email);
 
 
@@ -284,9 +286,6 @@ const deleteUser = asyncHandler(async (req, res) => {
 
     console.log("this is User data => "+user);
 
-    if(!user) {
-      return res.status(404).send("User not found");
-    }
 
     return res
       .status(200)

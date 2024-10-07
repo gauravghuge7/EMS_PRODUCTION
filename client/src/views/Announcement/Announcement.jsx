@@ -30,6 +30,7 @@ function Announcement() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                withCredentials: true,
             });
 
             console.log('Response:', response.data.data);
@@ -58,7 +59,21 @@ function Announcement() {
 
     const fetchAnnouncements = async () => {
         try {
-            const response = await axios.post('/api/v1/admin/getAnnouncements');
+
+
+            
+
+            console.log("localstroage => ", localStorage.getItem('adminToken'));
+
+
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json', // Include token in the Authorization header
+                },
+                withCredentials: true // Ensure this is included if you're using cookies
+            };
+
+            const response = await axios.get('/api/v1/admin/getAnnouncements', config);
 
             console.log('Fetched Announcements:', response.data);
             console.log('Fetched Announcements => ', response.data.data);
@@ -73,8 +88,11 @@ function Announcement() {
                 
                 setAnnouncements(flattenedAnnouncements);
             }
-        } catch (error) {
+        } 
+        catch (error) {
             console.error("Error fetching announcements:", error);
+
+            console.log("Error.response.data.error", error.response.data)
         }
     };
     
