@@ -21,7 +21,7 @@ app.use(cookieParser());
 // enable cors
 
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: "http://13.235.142.116:5173",
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH", "HEAD", "CONNECT"],
   allowedHeaders: [
@@ -57,7 +57,7 @@ app.options('*', cors()); // Handle preflight requests for all routes
 
 
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "http://localhost:5173");
+  res.header("Access-Control-Allow-Origin", "http://13.235.142.116:5173");
   res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH,  DELETE, OPTIONS");
   if (req.method === 'OPTIONS') {
