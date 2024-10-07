@@ -31,7 +31,7 @@ AdminRouter.route("/login").post(
 
 );
 
-AdminRouter.route("/logout").post(
+AdminRouter.route("/logout").get(
   isAdminLoggedIn,
   logoutAdmin
 );
@@ -129,7 +129,7 @@ AdminRouter.route("/sendNotice").post(
 
 
 AdminRouter.route("/createAnnouncement").post(isAdminLoggedIn,createAnnouncement)
-AdminRouter.route("/getAnnouncements").post(isAdminLoggedIn,getAnnouncements)
+AdminRouter.route("/getAnnouncements").get(isAdminLoggedIn,getAnnouncements)
 
 
 export default AdminRouter;

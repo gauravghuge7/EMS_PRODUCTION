@@ -63,40 +63,45 @@ function Navbar({ userType, setUserType }) {
 
   const handleAdminLogout = async (e) => {
     // Clear user data
-    setUserType(null);
-    localStorage.removeItem("token"); // If you're using localStorage or sessionStorage
-    sessionStorage.removeItem("userType"); // Clear session storage if used
-    e.preventDefault();
-
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      withCredentials: true,
-    };
-
-    const response = await axios.post(
-      "/api/v1/admin/logout",
-      config
-    );
-    localStorage.removeItem("admin");
-    document.cookie =
-      "admintoken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-
-    console.log(response);
-
-    const data = response.data;
-
-    console.log(data);
-
-    if (response.status === 200) {
-      // alert(data.message);
-
-      toast.success(data.message);
-
-      toast.success("logged out");
-
-      navigate("/", { replace: true });
+    try {
+      setUserType(null);
+      localStorage.removeItem("token"); // If you're using localStorage or sessionStorage
+      sessionStorage.removeItem("userType"); // Clear session storage if used
+      e.preventDefault();
+  
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      };
+  
+      const response = await axios.get(
+        "/api/v1/admin/logout",
+        config
+      );
+      localStorage.removeItem("admin");
+      document.cookie =
+        "admintoken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  
+      console.log(response);
+  
+      const data = response.data;
+  
+      console.log(data);
+  
+      if (response.status === 200) {
+        // alert(data.message);
+  
+        toast.success(data.message);
+  
+        toast.success("logged out");
+  
+        navigate("/", { replace: true });
+      }
+    } 
+    catch (error) {
+      console.log(error);  
     }
   };
 
@@ -120,10 +125,10 @@ function Navbar({ userType, setUserType }) {
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="lucide lucide-align-right"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="lucide lucide-align-right"
                 >
                   <line x1="21" x2="3" y1="6" y2="6" />
                   <line x1="21" x2="9" y1="12" y2="12" />
@@ -143,10 +148,10 @@ function Navbar({ userType, setUserType }) {
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="lucide lucide-x"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-x"
                   >
                     <path d="M18 6 6 18" />
                     <path d="m6 6 12 12" />

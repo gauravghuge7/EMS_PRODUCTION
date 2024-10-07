@@ -86,8 +86,10 @@ function ShowTableData({ DataObject }) {
     const config = {
       headers: {
         'Content-Type': 'application/json',
+        
       },
       withCredentials: true,
+      
     };
 
     const body = { email };

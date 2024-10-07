@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import React from 'react'
 import dayjs from 'dayjs';
 import isBetweenPlugin from 'dayjs/plugin/isBetween';
 import { styled } from '@mui/material/styles';
@@ -8,6 +7,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { PickersDay } from '@mui/x-date-pickers/PickersDay';
 import axios from 'axios'
+import convertToSimpleDate  from '../../components/Admin/TimeSetting/SetDate';
+
 
 dayjs.extend(isBetweenPlugin);
 
@@ -44,12 +45,10 @@ const CustomPickersDay = styled(PickersDay, {
     borderBottomRightRadius: '50%',
   }),
 }));
+
 function Day(props) {
   const { day, selectedDay, startDate, endDate, hoveredDay, ...other } = props;
-
-  // eslint-disable-next-line react/prop-types
   const isInRange = day.isBetween(startDate, endDate, null, '[]');
-  // eslint-disable-next-line react/prop-types
   const isSelected = day.isSame(startDate, 'day') || day.isSame(endDate, 'day');
 
   return (
@@ -66,17 +65,21 @@ function Day(props) {
   );
 }
 
-export default function Calendar() {
 
+
+export default function Calendar() {
+  const [date, setDate] = useState(dayjs());
+  
   useEffect(() => {
     getEmployeeHistory();
   }, []);
 
   const [employeeHistory, setEmployeeHistory] = useState();
-  const [startDate, setStartDate] = React.useState(dayjs(employeeHistory?.startDate));
-  const [endDate, setEndDate] = React.useState(dayjs(employeeHistory?.endDate));
-  const [dailyReport, setDailyReport] = useState("Nikhil");
+  const [startDate, setStartDate] = useState(dayjs(employeeHistory?.startDate));
+  const [endDate, setEndDate] = useState(dayjs(employeeHistory?.endDate));
+  const [dailyReport, setDailyReport] = useState([]);
   const [openOnClick, setOpenOnClick] = useState(false);
+
   const handleDailyClick = async(date) => {
     console.log(date)
     setOpenOnClick(true)
@@ -107,7 +110,7 @@ export default function Calendar() {
         },
         withCredentials: true,
       };
-      const response = await axios.get("http://localhost:5200/api/v1/admin/getLeaveEmployee", config);
+      const response = await axios.get(`/api/v1/admin/getLeaveEmployee`, config);
       console.log(response.data.data.at(-1));
       setStartDate(dayjs(response.data.data.at(-1).startDate))
       setEndDate(dayjs(response.data.data.at(-1).endDate))
@@ -116,10 +119,8 @@ export default function Calendar() {
     }
   };
 
-
-
   return (
-    <div className='pt-32 z-10  scale-[2] '>
+    <div className='pt-32 z-10 lg:scale-150 md:scale-125 sm:scale-100'>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DateCalendar
           value={startDate}
@@ -132,28 +133,80 @@ export default function Calendar() {
               selectedDay: startDate,
               startDate: startDate,
               endDate: endDate,
-
-
             }),
           }}
         />
       </LocalizationProvider>
 
-      <dialog open={openOnClick} className='rounded-[12px] absolute z-50    w-[500px] min-h-[300px] top-0 mt-44 bg-black text-white'>
-        <h2 className='mt-2 text-center'>Daily Report</h2>
-        <h3 className=' text-center'>{dailyReport}</h3>
+      <dialog open={openOnClick} className='rounded-lg absolute z-50 w-11/12 md:w-3/4 lg:w-1/2 min-h-[300px] top-0 mt-44 bg-black text-white'>
 
-        <h3 className='mt-8 text-center'>Todays Report </h3>
-        <div className='flex flex-col gap-8 p-2 rounded-lg  w-[21rem] mx-auto border '>
-          <div className=' '>
-            <h2>Done the Frontend</h2>
-            <a target='_blank' href={`https://github.com/ArohiSoftware/emplyeemanagement/compare/main...code-sharad:emplyeemanagement:main`} className='text-[12px] font-light hover:underline'>Github Commits</a>
-          </div>
+          <section className='flex flex-col items-center justify-center p-4'>
 
-          <p className='text-sm'>Improved the UI of EMS</p>
-        </div>
-        <button className='absolute top-2  right-4' onClick={() => setOpenOnClick(false)}>x</button>
-      </dialog>
+              <h3 className='mt-8 text-center text-lg'>Todays Report</h3>
+
+                {dailyReport.length !== 0 ? (
+                dailyReport.map((report, i) => (
+                  <div
+                    key={i}
+                    className='w-full bg-white rounded-xl shadow-lg overflow-hidden p-6 mb-4 max-w-md mx-auto sm:max-w-sm md:max-w-lg lg:max-w-xl'
+                  >
+                    <div className='text-center mb-4'>
+                      <h1 className='text-2xl font-semibold text-gray-800 mb-1'>
+                        {report.projectName}
+                      </h1>
+                      <a
+                        href={report.workUrl}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        className='text-blue-500 hover:underline break-words'
+                      >
+                        {report.workUrl}
+                      </a>
+                      <p className='text-sm text-gray-500 mt-2'>
+                        {convertToSimpleDate(report.time)}
+                      </p>
+                    </div>
+
+                    <div className='bg-gray-100 p-4 rounded-lg shadow-inner'>
+                      <p className='text-gray-700 text-lg leading-relaxed'>{report.report}</p>
+                    </div>
+
+                    <button
+                      className='absolute top-2 right-4 text-gray-500 hover:text-gray-800 transition-colors duration-300 focus:outline-none'
+                      onClick={() => setOpenOnClick(false)}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+
+                ))
+              ) : (
+                <div className='bg-black h-auto w-full rounded-lg overflow-hidden pt-8'>
+                  <h1 className='text-center text-lg'>No Daily Reports</h1>
+                  <button className='absolute top-2 right-4' onClick={() => setOpenOnClick(false)}>x</button>
+                </div>
+              )}
+
+          </section>
+
+        
+
+
+      </dialog>   
+
     </div>
   );
-}   
+}

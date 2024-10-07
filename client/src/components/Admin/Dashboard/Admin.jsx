@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import Footer from '../Footer/Footer';
+
 import Sidebar from '../Sidebar/Sidebar';
 
 
@@ -128,8 +128,7 @@ function Admin() {
 
   useEffect(() => {
     getEmployee();
-
-
+    
   })
 
   useEffect(() => {

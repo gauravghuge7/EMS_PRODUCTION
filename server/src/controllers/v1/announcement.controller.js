@@ -44,6 +44,9 @@ export const createAnnouncement = asyncHandler(async (req, res, next) => {
 // Get all announcements
 export const getAnnouncements = asyncHandler(async (req, res, next) => {
   try {
+    
+    console.log("function run properly")
+
     const announcements = await Announcement.find().populate(
       "createdBy",
       "email"

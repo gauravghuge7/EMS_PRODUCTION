@@ -5,7 +5,14 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
 
   server: {
-    proxy: "http://13.235.142.116:5200"
+    proxy:  {
+      '/api/v1':  {
+      
+        target: 'http://localhost:5200',  // Fixed the missing slash
+        changeOrigin: true,  
+        
+      }
+    }
   },
 
   plugins: [react()],

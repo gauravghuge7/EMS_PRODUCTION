@@ -6,15 +6,13 @@ import {
 import axios from 'axios';
 import {
   Link,
-  useLocation,
-  useNavigate,
+  
 } from 'react-router-dom';
 
 // eslint-disable-next-line react/prop-types
 function Sidebar({ activeBox, setActiveBox, notifactionCount }) {
     const [count,setCount] = useState(0);
-     const location = useLocation();
-     const navigate = useNavigate();
+     
      const [isOpen, setIsOpen] = useState(true);
      const [isMobile, setIsMobile] = useState(false);
 
@@ -40,7 +38,7 @@ function Sidebar({ activeBox, setActiveBox, notifactionCount }) {
         return response.data;
     }
     useEffect(() => {
-        const res = fetchleave().then((res) => {
+        fetchleave().then((res) => {
 
             const check = res.data.filter((item) => item.leaveStatus === 'pending')
             setCount(check.length);
@@ -51,7 +49,33 @@ function Sidebar({ activeBox, setActiveBox, notifactionCount }) {
      const MobileNav = () => {
          return <div className=' min-h-12 z-[100] bg-white/80 p-2 sticky top-0 backdrop-blur-lg  '>
              <Link to={"/"} className=' text-2xl ml-4'>EMS</Link>
-             {isOpen ? <div className='absolute right-3 top-3 ' onClick={() => setIsOpen(!isOpen)}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-align-right"><line x1="21" x2="3" y1="6" y2="6" /><line x1="21" x2="9" y1="12" y2="12" /><line x1="21" x2="7" y1="18" y2="18" /></svg></div> : <div className='h-full'><button className='absolute right-3 top-3' onClick={() => setIsOpen(!isOpen)}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg></button><nav className='mt-8 ml-4 gap-3 flex flex-col  items-end mr-12 text-xl mb-4'>
+             {isOpen ? <div className='absolute right-3 top-3 ' onClick={() => setIsOpen(!isOpen)}>
+                <svg 
+                xmlns="http://www.w3.org/2000/svg"
+                width="24" height="24" 
+                viewBox="0 0 24 24" fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                className="lucide lucide-align-right">
+                    <line x1="21" x2="3" y1="6" y2="6" /><line x1="21" x2="9" y1="12" y2="12" /><line x1="21" x2="7" y1="18" y2="18" /></svg></div>
+                     : 
+                    <div className='h-full'>
+                        <button className='absolute right-3 top-3' onClick={() => setIsOpen(!isOpen)}>
+
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                            width="24" height="24" 
+                            viewBox="0 0 24 24" fill="none" 
+                            stroke="currentColor" 
+                            strokeWidth="2"
+                            strokeLinecap="round" 
+                            strokeLinejoin="round" 
+                            className="lucide lucide-x">
+                            <path d="M18 6 6 18" />
+                            <path d="m6 6 12 12" /></svg>
+                        </button>
+                    <nav className='mt-8 ml-4 gap-3 flex flex-col  items-end mr-12 text-xl mb-4'>
                  <Link className={`${activeBox === 'dashboard' ? 'underline  underline-offset-2 font-semibold' :''}  hover:underline`} onClick={() =>{ setActiveBox("dashboard") ; setIsOpen(!isOpen)}}  to="/admin-dashboard">Dashboard</Link>
                  <Link className={`${activeBox === 'profile' ? 'underline underline-offset-2 font-semibold' : ''} hover:underline`} onClick={() =>{ setActiveBox("profile") ; setIsOpen(!isOpen)}} to="/admin-dashboard">Profile</Link>
                  <Link className={`${activeBox === 'manage' ? 'underline underline-offset-2 font-semibold' : ''} hover:underline`} onClick={() =>{ setActiveBox("manage") ; setIsOpen(!isOpen)}} to="/admin-dashboard">Manage</Link>
@@ -257,7 +281,16 @@ function Sidebar({ activeBox, setActiveBox, notifactionCount }) {
                                             type="button"
                                             onClick={() => setActiveBox("history")}
                                         >
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-history"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /><path d="M12 7v5l4 2" /></svg>
+                                            <svg 
+                                            xmlns="http://www.w3.org/2000/svg" 
+                                            width="24" height="24" 
+                                            viewBox="0 0 24 24" fill="none" 
+                                            stroke="currentColor" 
+                                            strokeWidth="2" 
+                                            strokeLinecap="round" 
+                                            strokeLinejoin="round" 
+                                            className="lucide lucide-history"
+                                            ><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /><path d="M12 7v5l4 2" /></svg>
                                             <p className="block antialiased font-sans text-base leading-relaxed text-inherit font-medium capitalize">
                                                 Leave History
                                             </p>
