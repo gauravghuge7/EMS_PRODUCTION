@@ -17,7 +17,7 @@ const cookieOptions = {
   httpOnly: true,
   secure: false,
   sameSite: "lax",
-  domain: "localhost",
+  domain: "production",
 };
 
 /**
