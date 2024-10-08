@@ -19,9 +19,9 @@ app.use(cookieParser());
 
 
 const allowedOrigins = [
-  "http://13.235.142.116", 
-  "http://13.235.142.116:80", 
-  "http://13.235.142.116:5173"
+  "http://13.202.64.146", 
+  "http://13.202.64.146:80", 
+  "http://13.202.64.146:5173"
 ];
 
 
@@ -73,7 +73,7 @@ app.options('*', cors()); // Handle preflight requests for all routes
 
 
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "http://13.235.142.116");
+  res.header("Access-Control-Allow-Origin", "http://13.202.64.146");
   res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH,  DELETE, OPTIONS");
   if (req.method === 'OPTIONS') {
