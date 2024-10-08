@@ -1,11 +1,12 @@
 import { server } from "./src/socket.js";
 import connectDB from "./src/db/db.js";
 import { PORT } from "./src/constant.js";
+import { app } from "./src/app.js";
 
 const main = async(port) => {
     try {
         await connectDB();
-        server.listen(port);
+        app.listen(port);
     } 
     catch (err) {
         console.log("MONGO db connection failed !!! ", err);
