@@ -1,4 +1,4 @@
-import { server } from "./src/socket.js";
+
 import connectDB from "./src/db/db.js";
 import { PORT } from "./src/constant.js";
 import { app } from "./src/app.js";

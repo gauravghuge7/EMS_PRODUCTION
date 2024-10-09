@@ -13,12 +13,13 @@ import {
 } from "../../utils/bodyHelper.js";
 
 const cookieOptions = {
-  maxAge: 1000 * 60 * 60 * 24,
-  httpOnly: true,
-  secure: false,
-  sameSite: "lax",
-  domain: "production",
+  maxAge: 1000 * 60 * 60 * 24,  // 1 day
+  httpOnly: true,               // Prevent client-side JS from accessing the cookie
+  secure: process.env.NODE_ENV === 'production',  // Set 'Secure' flag in production (HTTPS only)
+  sameSite: 'None',             // Allow cross-origin requests (important for frontend-backend requests)
+  // domain: 'yourdomain.com'       
 };
+
 
 /**
  * Description: Registers A Admin
@@ -86,45 +87,55 @@ const registerAdmin = asyncHandler(async (req, res, next) => {
 
 const loginAdmin = asyncHandler(async (req, res, next) => {
   try {
-    // Data from Req Body
+    // Destructure data from the request body
     const { email, password } = req.body;
 
-    // Validate data
-    checkArgsIfExists(email, password);
-    checkIfStringArgsIsEmpty(email, password);
+    // Validate email and password
+    checkArgsIfExists(email, password);              // Ensure email and password are present
+    checkIfStringArgsIsEmpty(email, password);       // Ensure email and password are not empty
 
     if (email.indexOf("@") === -1) {
-      throw new ApiError(400, "Invalid email");
+      throw new ApiError(400, "Invalid email format");
     }
 
-    // Find User
+    // Find the admin user by email
     const user = await AdminModel.findOne({ email });
 
-    // Handle If no user was
+    // Handle the case where the user is not found
     if (!user) {
-      throw new ApiError(401, "User has been not registered");
+      throw new ApiError(401, "User is not registered");
     }
 
-    // compare password
+    // Compare passwords (input password vs. stored hash)
     const comparePassword = await bcrypt.compare(password, user.password);
 
-    // Handle Mismatch Password
+    // Handle incorrect password
     if (!comparePassword) {
-      throw new ApiError(401, "Password Wrong");
+      throw new ApiError(401, "Incorrect password");
     }
 
+    // Generate the admin authentication token (e.g., JWT)
     const adminToken = await user.generateAdminToken();
 
+    // Define cookie options with proper settings for security
+    const cookieOptions = {
+      maxAge: 1000 * 60 * 60 * 24,  // 1 day
+      httpOnly: true,               // Prevents client-side access via JS
+      secure: process.env.NODE_ENV === 'production',  // Send only over HTTPS in production
+      sameSite: 'None'              // Allows cookies to be sent across different domains
+    };
+
+    // Set cookie and send response
     return res
       .status(200)
-      .cookie("adminToken", adminToken, cookieOptions)
-      .json(new ApiResponse(200, "User logged in successfully", user));
-  } 
-  catch (err) {
+      .cookie("adminToken", adminToken, cookieOptions)  // Setting the cookie
+      .json(new ApiResponse(200, "User logged in successfully", { user, adminToken }));
+  } catch (err) {
+    // Handle errors, pass them to the error middleware
     next(err);
-    // return res.status(400).send(err.message);
   }
 });
+
 
 
 
